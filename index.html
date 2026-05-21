@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gerador de FVS | Edificio Virtus</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-brand">
+        <span class="topbar-logo">GE</span>
+        <div>
+          <strong>Sistema Automatizado de FVS - Virtus Boutique Medical</strong>
+          <span>Genesi Engenharia | Petrolina/PE | PBQP-H | ISO 9001 | ABNT | NR-18</span>
+        </div>
+      </div>
+      <div class="topbar-badges" aria-label="Referenciais de qualidade">
+        <span>PBQP-H</span>
+        <span>ISO 9001</span>
+        <span>ABNT</span>
+        <span>NR-18</span>
+      </div>
+    </header>
+    <main class="app-shell">
+      <aside class="sidebar" aria-label="Configuracao da FVS">
+        <header class="brand">
+          <span class="brand-mark">V</span>
+          <div>
+            <strong>Virtus FVS</strong>
+            <span>Controle da qualidade</span>
+          </div>
+        </header>
+
+        <section class="panel">
+          <h1>Gerador automatizado de FVS</h1>
+          <p>Fichas tecnicas auditaveis para PBQP-H, ISO 9001 e controle executivo da obra.</p>
+        </section>
+
+        <section class="stats-panel" aria-label="Indicadores do catalogo">
+          <div>
+            <strong id="statServices">0</strong>
+            <span>Servicos</span>
+          </div>
+          <div>
+            <strong id="statStages">0</strong>
+            <span>Etapas</span>
+          </div>
+          <div>
+            <strong id="statHistory">0</strong>
+            <span>Geradas</span>
+          </div>
+        </section>
+
+        <section class="catalog-panel">
+          <h2>Catalogo por etapa</h2>
+          <div id="catalogList" class="catalog-list"></div>
+        </section>
+
+        <section class="logo-panel">
+          <h2>Logomarcas do relatorio</h2>
+          <label>
+            Logo Genesi Engenharia
+            <input id="genesiLogoInput" type="file" accept="image/*" />
+          </label>
+          <label>
+            Logo Virtus
+            <input id="virtusLogoInput" type="file" accept="image/*" />
+          </label>
+          <button type="button" id="clearLogosBtn">Remover logos</button>
+        </section>
+
+        <section class="cloud-panel">
+          <h2>Nuvem e lotes</h2>
+          <p id="cloudStatus">Nuvem nao configurada. O sistema esta salvando neste aparelho.</p>
+          <button type="button" id="cloudSyncBtn">Salvar na nuvem</button>
+        </section>
+
+        <form id="fvsForm" class="form-grid">
+          <label>
+            Servico
+            <select id="serviceSelect" name="service"></select>
+          </label>
+
+          <div class="two-cols">
+            <label>
+              Codigo
+              <input id="codeInput" name="code" type="text" />
+            </label>
+            <label>
+              Revisao
+              <input name="revision" type="text" value="00" />
+            </label>
+          </div>
+
+          <div class="two-cols">
+            <label>
+              Data
+              <input name="date" type="date" />
+            </label>
+            <label>
+              Turno
+              <select name="shift">
+                <option>Diurno</option>
+                <option>Noturno</option>
+                <option>Integral</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            Lote da inspecao
+            <input name="lot" type="text" placeholder="Ex.: Lote CON-01 / Estacas E01-E10" />
+          </label>
+
+          <div class="two-cols">
+            <label>
+              Torre
+              <select name="tower">
+                <option>Torre Medical</option>
+                <option>Torre Empresarial</option>
+                <option>Mall</option>
+                <option>Garagens</option>
+                <option>Areas externas</option>
+              </select>
+            </label>
+            <label>
+              Local/Pavimento
+              <input name="floor" type="text" placeholder="Ex.: 5o pavimento" />
+            </label>
+          </div>
+
+          <label>
+            Frente de servico
+            <input name="front" type="text" placeholder="Ex.: Eixo A-D / 1-6" />
+          </label>
+
+          <div class="two-cols">
+            <label>
+              Empresa executora
+              <input name="contractor" type="text" placeholder="Nome da contratada" />
+            </label>
+            <label>
+              Clima
+              <select name="weather">
+                <option>Ensolarado</option>
+                <option>Nublado</option>
+                <option>Chuvoso</option>
+                <option>Vento forte</option>
+                <option>Nao aplicavel</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="two-cols">
+            <label>
+              Responsavel tecnico
+              <input name="engineer" type="text" />
+            </label>
+            <label>
+              Inspetor
+              <input name="inspector" type="text" />
+            </label>
+          </div>
+
+          <label>
+            Equipe executora
+            <textarea name="crew" rows="2" placeholder="Encarregado, oficiais e ajudantes"></textarea>
+          </label>
+
+          <div class="actions">
+            <button class="primary" type="submit">Gerar FVS</button>
+            <button type="button" id="printBtn">Imprimir/PDF</button>
+            <button type="button" id="downloadBtn">Baixar Word</button>
+            <button type="button" id="newBtn">Nova inspecao</button>
+          </div>
+        </form>
+
+        <section class="history-panel">
+          <h2>Historico da sessao</h2>
+          <div id="historyList" class="history-list">
+            <p>Nenhuma FVS gerada ainda.</p>
+          </div>
+        </section>
+      </aside>
+
+      <section class="workspace" aria-label="Ficha gerada">
+        <div class="toolbar">
+          <div>
+            <strong id="serviceTitle">Selecione um servico</strong>
+            <span id="serviceMeta">A ficha sera atualizada automaticamente.</span>
+          </div>
+          <button type="button" id="copyBtn">Copiar conteudo</button>
+          <button type="button" id="saveFvsBtn">Salvar FVS</button>
+        </div>
+        <article id="fvsOutput" class="document" aria-live="polite"></article>
+      </section>
+    </main>
+
+    <script src="cloud-config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
