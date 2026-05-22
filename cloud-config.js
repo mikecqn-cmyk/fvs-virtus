@@ -1,6 +1,6 @@
 window.FVS_CLOUD_CONFIG = {
-  enabled: false,
-  supabaseUrl: "",
-  supabaseAnonKey: "",
+  enabled: true,
+  supabaseUrl: "https://SEU-PROJETO.supabase.co",
+  supabaseAnonKey: "SUA-CHAVE-ANON",
   evidenceBucket: "fvs-evidencias",
 };
